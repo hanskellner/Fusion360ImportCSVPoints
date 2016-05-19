@@ -55,9 +55,9 @@ The script should be ready to run.
 
   - Unit Type: Select the unit of the point values.
   - Style : Select one of the following styles to generate:
-    - "Sketch Points" : Create a sketch point for each point
-    - "Sketch Lines" : Create sketch lines connecting the points
-    - "Splines" : Create sketch splines connecting the points
+    - "Points" : Create a sketch point for each point
+    - "Lines" : Create sketch lines connecting the points
+    - "Fitted Splines" : Create sketch splines connecting the points
   - Sketch : Select a sketch to use or none to create a new sketch
 6. Click OK to generate
 
