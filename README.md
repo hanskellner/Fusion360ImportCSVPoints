@@ -1,6 +1,8 @@
-# ![](./resources/32x32.png) Fusion360ImportCSVPoints
+# ![](./resources/32x32.png) Autodesk Fusion 360 ImportCSVPoints
 
-This is an [Autodesk Fusion 360](http://fusion360.autodesk.com/) script that imports a set of points from a CSV file and create points/lines/splines in a sketch.
+This is an [Autodesk Fusion 360](http://fusion360.autodesk.com/) script that imports a set of points from a CSV file and creates points/lines/splines in a sketch.
+
+![Image of Box, Vase, and Flowers imported from sample](./resources/BoxVaseFlowers.png)
 
 The CSV file should contain comma separated coordinate values:
 
@@ -27,16 +29,17 @@ When creating only points, not lines or splines, then the blank lines are ignore
 
 Copy this scripts folder into your Fusion 360 "My Scripts" folder. You may find this folder using the following steps:
 
-# Start Fusion 360 and then select the File -> Scripts... menu item
-# The Scripts Manager dialog will appear and display the "My Scripts" folder and "Sample Scripts" folders
-# Select one of the "My Scripts" files and then click on the "+" Details icon near the bottom of the dialog.
-#- If there are no files in the "My Scripts" folder then create a default one.
-#- Click the Create button, select JavaScript, and then OK.
-# With the user script selected, click the Full Path "..." button to display a file explorer window that will display the "My Scripts" folder
-# Copy the files into the folder
+1. Start Fusion 360 and then select the File -> Scripts... menu item
+2. The Scripts Manager dialog will appear and display the "My Scripts" folder and "Sample Scripts" folders
+3. Select one of the "My Scripts" files and then click on the "+" Details icon near the bottom of the dialog.
+ - If there are no files in the "My Scripts" folder then create a default one.
+ - Click the Create button, select JavaScript, and then OK.
+4. With the user script selected, click the Full Path "..." button to display a file explorer window that will display the "My Scripts" folder
+5. Copy the files into the folder
 
 For example, on a Mac the folder is located in:
-/Users/USERNAME/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Scripts
+
+<pre>/Users/USERNAME/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Scripts</pre>
 
 The script should be ready to run.
 
@@ -44,12 +47,8 @@ The script should be ready to run.
 
 1. Enter the Model environment
 2. Run the "ImportCSVPoints" script from the Script Manager
-
-    ![Run Script](./resources/ScriptsAndAdd-Ins.png)
-
 3. A file dialog will be displayed.
-  - Select the comma seperated value (CSV) file containing the 3D points then click OK.
-
+  - Select the comma seperated value (CSV) file containing the points then click OK.
 4. The settings dialog will be shown
 
   ![Image of Settings Dialog](./resources/SettingsDialog.png)
