@@ -328,8 +328,9 @@ function run(context) {
 
                 var line = linesCSV[i].trim();
 
-                // Is this line empty?
-                if (line === "") {
+                // Is this line empty?  Note, also check for the case where the line contains the separators but no values.
+                // This can occur when some app, such as Excel, export empty rows.
+                if (line === "" || line === ",," || line === ",") {
                     // A blank line indicates a break in the point sequence and to start
                     // a new set of points.  For example, for creating multiple lines.
                     // If we have any lines then bump index to start a new line.
@@ -338,7 +339,11 @@ function run(context) {
                     }
 
                     // Skip over multiple blank lines (treat as one)
-                    for (++i ; line === "" && i < linesCSVCount; ++i) {
+                    while ((line === "" || line === ",," || line === ",") && i < linesCSVCount) {
+                        ++i;
+                        if (i == linesCSVCount) {
+                            break;  // No more lines
+                        }
                         line = linesCSV[i].trim();
                     }
 
