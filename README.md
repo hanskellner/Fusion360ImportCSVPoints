@@ -51,7 +51,7 @@ The script should be ready to run.
   - Select the comma seperated value (CSV) file containing the points then click OK.
 4. The settings dialog will be shown
 
-  ![Image of Settings Dialog](resources/SettingsDialog.png)
+  ![Image of Settings Dialog](./resources/SettingsDialog.png)
 
   - Unit Type: Select the unit of the point values.
   - Style : Select one of the following styles to generate:
