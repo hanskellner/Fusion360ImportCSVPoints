@@ -27,21 +27,15 @@ When creating only points, not lines or splines, then the blank lines are ignore
 
 ## Installation
 
-Copy this scripts folder into your Fusion 360 "My Scripts" folder. You may find this folder using the following steps:
+Please see the most recent script install instructions here:
 
-1. Start Fusion 360 and then select the File -> Scripts... menu item
-2. The Scripts Manager dialog will appear and display the "My Scripts" folder and "Sample Scripts" folders
-3. Select one of the "My Scripts" files and then click on the "+" Details icon near the bottom of the dialog.
- - If there are no files in the "My Scripts" folder then create a default one.
- - Click the Create button, select JavaScript, and then OK.
-4. With the user script selected, click the Full Path "..." button to display a file explorer window that will display the "My Scripts" folder
-5. Copy the files into the folder
+https://knowledge.autodesk.com/support/fusion-360/troubleshooting/caas/sfdcarticles/sfdcarticles/How-to-install-an-ADD-IN-and-Script-in-Fusion-360.html 
 
-For example, on a Mac the folder is located in:
+Download the archive file (ZIP) from Github by clicking on the "Clone or download" button and then selecting "Download ZIP":
 
-<pre>/Users/USERNAME/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Scripts</pre>
+Unarchive this file into the Scripts folder and once created, rename the folder created from the Zip archive name "Fusion360ImportCSVPoints-master.zip" to "Fusion360ImportCSVPoints":
 
-The script should be ready to run.
+You will then be able to use the Fusion 360 Scripts and Addins Manager to add this folder, and thus the script, to Fusion.
 
 ## Usage
 
@@ -63,4 +57,4 @@ The script should be ready to run.
 
 ## Issues
 
-- None
+- A large number of points can take a long time to import.  The sample "sketcher_vr_BoxVaseFlower.csv" takes 35 seconds to import on my 2018 Mac Pro Laptop.
