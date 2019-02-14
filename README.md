@@ -45,7 +45,7 @@ You will then be able to use the Fusion 360 Scripts and Addins Manager to add th
   - Select the comma seperated value (CSV) file containing the points then click OK.
 4. The settings dialog will be shown
 
-  ![Image of Settings Dialog](./resources/SettingsDialog.png)
+![Image of settings dialog](./resources/SettingsDialog.png)
 
   - Unit Type: Select the unit of the point values.
   - Style : Select one of the following styles to generate:
