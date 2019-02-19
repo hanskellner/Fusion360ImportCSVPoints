@@ -328,6 +328,9 @@ function run(context) {
 
                 var line = linesCSV[i].trim();
 
+                // Check for a line enclosed by quotes and remove them
+                line = line.replace(/^"(.+(?="$))"$/, '$1');
+
                 // Is this line empty?  Note, also check for the case where the line contains the separators but no values.
                 // This can occur when some app, such as Excel, export empty rows.
                 if (line === "" || line === ",," || line === ",") {

@@ -8,7 +8,7 @@ The CSV file should contain comma separated coordinate values:
 
 <pre>X,Y[,Z]</pre>
 
-The Z value is option and will default to 0 if not present.
+The Z value is optional and will default to 0 if not present.
 
 Additionally, a blank line will indicate a break in a sequence of points.  For example, when the CSV file contains points for multiple lines then each set should be separated by a blank line.  Here is an example of defining the points for two lines:
 
@@ -24,6 +24,8 @@ Additionally, a blank line will indicate a break in a sequence of points.  For e
 </pre>
 
 When creating only points, not lines or splines, then the blank lines are ignored.
+
+```NOTE: The script does not support UTF-8 encoded files.  For example, Excel supports saving both UTF-8 and non-UTF-8 encoded CSV files.  Choose the non-UTF-8.```
 
 ## Installation
 
@@ -57,4 +59,5 @@ You will then be able to use the Fusion 360 Scripts and Addins Manager to add th
 
 ## Issues
 
+- The script does not support UTF-8 encoded files.  For example, Excel supports saving both UTF-8 and non-UTF-8 encoded CSV files.  Choose the non-UTF-8.
 - A large number of points can take a long time to import.  The sample "sketcher_vr_BoxVaseFlower.csv" takes 35 seconds to import on my 2018 Mac Pro Laptop.
