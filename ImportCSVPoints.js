@@ -172,7 +172,7 @@ function run(context) {
                 case SKETCH_UNITS.SKETCH_UNIT_INCH:
                     unitScale = 2.54; break;
                 case SKETCH_UNITS.SKETCH_UNIT_FOOT:
-                    unitScale = 25.4; break;
+                    unitScale = 30.48; break;
             }
 
             // Convert points if not in centimeters, the default unit of model

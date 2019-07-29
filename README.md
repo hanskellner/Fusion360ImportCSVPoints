@@ -61,3 +61,7 @@ You will then be able to use the Fusion 360 Scripts and Addins Manager to add th
 
 - The script does not support UTF-8 encoded files.  For example, Excel supports saving both UTF-8 and non-UTF-8 encoded CSV files.  Choose the non-UTF-8.
 - A large number of points can take a long time to import.  The sample "sketcher_vr_BoxVaseFlower.csv" takes 35 seconds to import on my 2018 Mac Pro Laptop.
+
+## Fixes
+
+- 2019.07.29 : [@caseymtimm](https://github.com/caseymtimm) pointed out feet -> cm conversion was incorrect.  Submitted fix.
