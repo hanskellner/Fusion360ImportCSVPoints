@@ -2,7 +2,7 @@
 
 This is an [Autodesk Fusion 360](http://fusion360.autodesk.com/) add-in that imports a set of points from a CSV file and creates points/lines/splines in a sketch.
 
-![Image of Box, Vase, and Flowers imported from sample](./resources/sketcher_vr_BoxVaseFlowers.png)
+![Image of Box, Vase, and Flowers imported from sample](./images/sketcher_vr_BoxVaseFlowers.png)
 
 The CSV file should contain comma separated coordinate values:
 
@@ -29,7 +29,7 @@ The blank lines will only be recognized when creating lines or splines.  Otherwi
 
 Here's the sketcher_vr_Simple.csv example:
 
-![Image of sketcher_vr_Simple](./resources/sketcher_vr_Simple_anim.gif)
+![Image of sketcher_vr_Simple](./images/sketcher_vr_Simple_anim.gif)
 
 ## Installation
 
