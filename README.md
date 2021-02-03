@@ -71,11 +71,11 @@ Note, installing the add-in into the Fusion 360 Addins folder allows it to autom
 1. Enter the Model environment
 1. Run the "Import CSV Points" add-in from the Insert dropdown
 
-    ![Image of insert dropdown](./resources/insert-dropdown.png)
+    ![Image of insert dropdown](./images/insert-dropdown.png)
 
 1. The settings dialog will be shown
 
-    ![Image of settings dialog](./resources/importcsvpoints-dialog.png)
+    ![Image of settings dialog](./images/importcsvpoints-dialog.png)
 
     - Units : Select the units of the CSV point values.
     - Style : Select one of the following styles to generate:
@@ -97,17 +97,17 @@ Note, installing the add-in into the Fusion 360 Addins folder allows it to autom
 
 The "Solid Body" Style is an experimental feature and isn't guaranteed to work.
 
-![Image of solid body style](./resources/importcsvpoints-dialog-solidbody.png)
+![Image of solid body style](./images/importcsvpoints-dialog-solidbody.png)
 
 When this style is selected, the dialog changes to allow selection of a single solid body.  The selected solid body will be cloned for each point loaded from the CSV file.  The locations loaded from the CSV file will be *relative* to the selected solid body.  For example, a location of 0,0,0 will be at the same location of the selected body.  A location of 5,5,0 will be offset 5 units in the XY direction.
 
 Here's selecting a sphere solid body.
 
-![Image of selecting sphere](./resources/importcsvpoints-dialog-solidbody-sphere.png)
+![Image of selecting sphere](./images/importcsvpoints-dialog-solidbody-sphere.png)
 
 And the result of selecting the sphere and then the 'simple3D.csv' file.
 
-![Image of spheres](./resources/importcsvpoints-dialog-solidbody-sphere-simple3D.png)
+![Image of spheres](./images/importcsvpoints-dialog-solidbody-sphere-simple3D.png)
 
 ### Patterns
 
@@ -118,7 +118,7 @@ A CSV file may contain a "pattern" command on a line rather than a set of coordi
 
 If a CSV file contains a pattern command along with valid argument values, then a set of points will be generated and imported.  For example, selecting the "Line" style and then the spiralcube.csv sample file will generate the following sketch.
 
-![Image of spiral sketch](./resources/spiralcube_sketch.png)
+![Image of spiral sketch](./images/spiralcube_sketch.png)
 
 ## Issues
 
