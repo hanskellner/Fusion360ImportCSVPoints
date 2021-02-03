@@ -79,10 +79,10 @@ Note, installing the add-in into the Fusion 360 Addins folder allows it to autom
 
     - Units : Select the units of the CSV point values.
     - Style : Select one of the following styles to generate:
-        * "Points" : Create a sketch point for each point
-        * "Lines" : Create sketch lines connecting the points
-        * "Fitted Splines" : Create sketch splines connecting the points
-        * Solid Body : Experimental feature (see section below for information)
+        * __Points__ : Create a sketch point for each point
+        * __Lines__ : Create sketch lines connecting the points
+        * __Fitted Splines__ : Create sketch splines connecting the points
+        * __Solid Body__ : Experimental feature (see section below for information)
     - Sketch : Select a sketch to use or none. If no sketch is selected then a new sketch will be created on the construction plane selected (see below).
     - Construction Plane:
         * Enabled when no sketch or profile is selected.  Select which construction plane for the new sketch created.
