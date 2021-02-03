@@ -1,0 +1,4 @@
+# Create a spiral pattern
+# Args: num arms, num points per arm, arms offset, rate of expansion, z step
+#spiral, 12, 20, 3, 5, 2
+spiral, 6, 20, 6, 5, 2

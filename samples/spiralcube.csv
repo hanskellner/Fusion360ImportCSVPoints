@@ -1,0 +1,4 @@
+# Create a spiral cube pattern
+# Args: point count, rotation in degrees, length to grow line
+#spiralcube, 60, 95, 0.6
+spiralcube, 60, 89, 0.6

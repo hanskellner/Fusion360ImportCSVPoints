@@ -1,10 +1,11 @@
 {
-	"autodeskProduct":	"Fusion360",
-	"type":	"script",
-	"author":	"Hans Kellner",
-	"description":	{
-		"":	"Imports a set of points from a CSV file"
-	},
-	"supportedOS":	"windows|mac",
-	"autodeskLibraries":	["application", "dashboard", "geometry", "materials", "userInterface", "utilities", "bRep", "components", "construction", "features", "fusion", "meshBody", "meshData", "sketch", "tSpline"]
+    "autodeskProduct": "Fusion360",
+    "type": "addin",
+    "id": "0f516f0e-e662-44a8-8f66-1b378ea2176c",
+    "author": "Hans Kellner",
+    "description": "Fusion 360 addin for importing a set of points from a CSV file and creating points, lines, or splines in a sketch.",
+    "version": "2.0.0",
+    "runOnStartup": false,
+    "supportedOS": "windows|mac",
+    "editEnabled": true
 }
