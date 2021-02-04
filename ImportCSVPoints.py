@@ -48,7 +48,6 @@ _ui = adsk.core.UserInterface.cast(None)
 _handlers = []
 
 # Units to use for imported points
-_defaultUnits = 'cm'
 _unit = 'cm'
 
 # File to load
@@ -511,7 +510,7 @@ class MyCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
         super().__init__()
     def notify(self, args):
         try:
-            global _app, _ui, _handlers, _defaultUnits, _csvFilename
+            global _app, _ui, _handlers, _unit, _csvFilename
             global _unitDropDownInput, _styleDropDownInput, _sketchSelectionInput, _constructionPlaneDropDownInput, _solidBodySelectionInput
 
             design = _app.activeProduct
@@ -533,7 +532,7 @@ class MyCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             _handlers.append(onInputChanged)    
 
             # Get the user's current units
-            _defaultUnits = design.unitsManager.defaultLengthUnits
+            _unit = design.unitsManager.defaultLengthUnits
 
             # Get the CommandInputs collection associated with the command.
             inputs = cmd.commandInputs
@@ -544,7 +543,7 @@ class MyCommandCreatedHandler(adsk.core.CommandCreatedEventHandler):
             # Dropdown for unit used in CSV file
             _unitDropDownInput = inputs.addDropDownCommandInput(_DROPDOWN_INPUT_ID_UNIT, 'Units', adsk.core.DropDownStyles.TextListDropDownStyle)
             for keyUnit, valUnit in UNIT_STRINGS.items():
-                _unitDropDownInput.listItems.add(valUnit, (_defaultUnits == keyUnit))
+                _unitDropDownInput.listItems.add(valUnit, (_unit == keyUnit))
 
             isSolidBodyStyle = (Sketch_Style(_style) == Sketch_Style.SKETCH_SOLID_BODY)
 
