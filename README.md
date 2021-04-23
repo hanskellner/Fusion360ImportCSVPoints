@@ -126,8 +126,8 @@ This is a little bit of a hack at the moment.  But it's possible now to create p
 
 Usage:
 
-    - Hollow: <pre>pipes, OuterRadius, InnerRadius</pre>
-    - Solid: <pre>pipes, OuterRadius</pre>
+    - Hollow: pipes, OuterRadius, InnerRadius
+    - Solid: pipes, OuterRadius
 
 Where:
 
