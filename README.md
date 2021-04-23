@@ -120,6 +120,24 @@ If a CSV file contains a pattern command along with valid argument values, then 
 
 ![Image of spiral sketch](./images/spiralcube_sketch.png)
 
+### Pipes
+
+This is a little bit of a hack at the moment.  But it's possible now to create pipes for lines/splines.  To use this feature, include the "pipes" command in the CSV file.
+
+Usage:
+
+    - Hollow: <pre>pipes, OuterRadius, InnerRadius</pre>
+    - Solid: <pre>pipes, OuterRadius</pre>
+
+Where:
+
+    - OuterRadius : Specifies the outer radius of the pipe
+    - InnerRadius : (Optional) Specifies inner (hollow) radius or set to 0 or leave empty for a solid pipe
+
+See or try the sample CSV files whose filenames end with "_pipes.csv" for examples.
+
+![Image of pipe](./images/sketcher_vr_Simple_pipes.png)
+
 ## Issues
 
 - The script does not support UTF-8 encoded files.  For example, Excel supports saving both UTF-8 and non-UTF-8 encoded CSV files.  Choose the non-UTF-8.
@@ -129,3 +147,4 @@ If a CSV file contains a pattern command along with valid argument values, then 
 ## Credits
 
 - 2019.07.29 : [@caseymtimm](https://github.com/caseymtimm) pointed out feet -> cm conversion was incorrect.  Submitted fix.
+- 2021.04.22 : [@HaikVasil](https://github.com/HaikVasil) provided fix for creating connecting lines. Also the suggestion to add Pipes support.

@@ -4,6 +4,7 @@
 import adsk.core, adsk.fusion, traceback, math, random
 
 from . import patterns
+from . import pipe
 from enum import Enum
 
 # CONSTANTS
@@ -162,6 +163,10 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
             
             lines = []      # list of point lists
             points3D = []   # Current Point3D list
+
+            cmdCreatePipes = False
+            argCreatePipesOuterRadius = 1
+            argCreatePipesInnerRadius = 0.5     # > 0 means hollow 
             
             # Read the csv file line by line.
             file = open(_csvFilename)
@@ -226,22 +231,50 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                         # spiral cube needs 3 arguments: pointCount, rotationInRadians, lengthGrow
                         if len(pieces) != 4:
                             progressDialog.hide()
-                            _ui.messageBox("Invalid 'spiralcube' line: {}".format(lineCount) + "\nCSV file: {}".format(csvFilename))
+                            _ui.messageBox("Invalid 'spiralcube' line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
                             return
                         
                         linesSpiralCube = patterns.generateSpiralCube(int(pieces[1]), float(pieces[2]), float(pieces[3]))
                         if linesSpiralCube == None:
                             progressDialog.hide()
-                            _ui.messageBox("Invalid parameters for 'spiralcube' at line: {}".format(lineCount) + "\nCSV file: {}".format(csvFilename))
+                            _ui.messageBox("Invalid parameters for 'spiralcube' at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
                             return
                         
                         lines.extend( linesSpiralCube )
+
+                    # Command to create pipes for all of the lines/splines read
+                    # REVIEW: HACK: This is a hack to allow creating pipes.
+                    elif pieces[0] == 'pipes':
+
+                        # Need to end previous set?
+                        if len(points3D) > 0:
+                            lines.append(points3D)
+                            points3D = []
+
+                        # pipe needs 1 or 2 arguments: outer radius, [inner radius]
+                        if (len(pieces) < 2 or len(pieces) > 3):
+                            progressDialog.hide()
+                            _ui.messageBox("Invalid 'pipes' line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
+                            return
+
+                        cmdCreatePipes = True
+                        (outerValid, argCreatePipesOuterRadius) = convertValue(float(pieces[1]))
+
+                        if (len(pieces) == 3):
+                            (innerValid, argCreatePipesInnerRadius) = convertValue(float(pieces[2]))
+                        else:
+                            (innerValid, argCreatePipesInnerRadius) = (True, 0)
+                        
+                        if not outerValid or not innerValid:
+                            progressDialog.hide()
+                            _ui.messageBox("Invalid pipes radius value at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
+                            return
 
                     else:
                     
                         if (len(pieces) < 2 or len(pieces) > 3):
                             progressDialog.hide()
-                            _ui.messageBox("No 2d or 3d point at line: {}".format(lineCount) + "\nCSV file: {}".format(csvFilename))
+                            _ui.messageBox("No 2d or 3d point at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
                             return
 
                         (xValid, x) = convertValue(float(pieces[0]))
@@ -254,7 +287,7 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
 
                         if not xValid or not yValid or not zValid:
                             progressDialog.hide()
-                            _ui.messageBox("Invalid number at line: {}".format(lineCount) + "\nCSV file: {}".format(csvFilename))
+                            _ui.messageBox("Invalid number at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
                             return
                         
                         # Save this point
@@ -278,7 +311,7 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
 
             # Empty file then just exit
             if len(lines) == 0:
-                _ui.messageBox("No points found in CSV file: {}".format(csvFilename))
+                _ui.messageBox("No points found in CSV file: {}".format(_csvFilename))
                 return
 
             # Creating solid bodies?
@@ -370,6 +403,8 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                 theSketch.isComputeDeferred = True  # Help to speed up import
                 theSketch.areProfilesShown = False # TESTING
 
+                new_sketch_lines = []
+
                 # Add sketch entities
                 if Sketch_Style(_style) == Sketch_Style.SKETCH_FITTED_SPLINES:
 
@@ -386,7 +421,8 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                             linePoints.add(pt)
 
                         # Create the spline.
-                        theSketch.sketchCurves.sketchFittedSplines.add(linePoints)
+                        theSketchLine = theSketch.sketchCurves.sketchFittedSplines.add(linePoints)
+                        new_sketch_lines.append(theSketchLine)
 
                         # If progress dialog is cancelled, stop drawing.
                         if progressDialog.wasCancelled:
@@ -411,8 +447,15 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                                 sketch_points.add(linePoints[iPt])
                             
                             elif Sketch_Style(_style) == Sketch_Style.SKETCH_LINES:
-                                if iPt > 0:
-                                    sketch_lines.addByTwoPoints(linePoints[iPt-1], linePoints[iPt])
+                                if iPt == 1:
+                                    theSketchLine = sketch_lines.addByTwoPoints(linePoints[iPt-1], linePoints[iPt])
+                                    new_sketch_lines.append(theSketchLine)
+                                if iPt > 1:
+                                    # Use previous sketch line's end point to start next line.  Otherwise they won't
+                                    # be connected lines.
+                                    theSketchLine = sketch_lines.addByTwoPoints(theSketchLine.endSketchPoint, linePoints[iPt])
+                                    # REVIEW: Only pass first line and then use "isChain" when creating feature.path
+                                    #new_sketch_lines.append(theSketchLine)
 
                         # If progress dialog is cancelled, stop drawing.
                         if progressDialog.wasCancelled:
@@ -424,6 +467,10 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                 # Done creating sketch entities
                 theSketch.isComputeDeferred = False
  
+                # Request to create pipes and were any skecth lines added?
+                if cmdCreatePipes and len(new_sketch_lines) > 0:
+                    pipe.createPipesOnLines(_app, _ui, new_sketch_lines, argCreatePipesOuterRadius, argCreatePipesInnerRadius)
+
             # Hide the progress dialog at the end.
             progressDialog.hide()
 
