@@ -139,7 +139,8 @@ Arguments:
 
 See or try the sample CSV files whose filenames end with "_pipes.csv" for examples.
 
-![Image of pipe](./images/sketcher_vr_Simple_pipes.png)
+![Image of 2D pipes](./images/simple2D_pipes.png)
+![Image of 3D pipes](./images/sketcher_vr_Simple_pipes.png)
 
 ## Issues
 
