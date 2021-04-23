@@ -124,13 +124,15 @@ If a CSV file contains a pattern command along with valid argument values, then 
 
 This is a little bit of a hack at the moment.  But it's possible now to create pipes for lines/splines.  To use this feature, include the "pipes" command in the CSV file.
 
-Usage:
+Usage 'Hollow' pipe:
 
-    - Hollow: pipes, OuterRadius, InnerRadius
-    - Solid: pipes, OuterRadius
+<pre>pipes, OuterRadius, InnerRadius</pre>
 
-Where:
+Usage 'Solid' pipe:
 
+<pre>pipes, OuterRadius</pre>
+
+Arguments:
     - OuterRadius : Specifies the outer radius of the pipe
     - InnerRadius : (Optional) Specifies inner (hollow) radius or set to 0 or leave empty for a solid pipe
 
