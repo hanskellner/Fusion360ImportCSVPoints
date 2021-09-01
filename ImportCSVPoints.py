@@ -401,7 +401,8 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                     theSketch.name = "CSV Points - " + theSketch.name
 
                 theSketch.isComputeDeferred = True  # Help to speed up import
-                theSketch.areProfilesShown = False # TESTING
+                wereProfilesShown = theSketch.areProfilesShown # REVIEW: Still testing if this improves performace
+                theSketch.areProfilesShown = False
 
                 new_sketch_lines = []
 
@@ -478,6 +479,7 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
 
                 # Done creating sketch entities
                 theSketch.isComputeDeferred = False
+                theSketch.areProfilesShown = wereProfilesShown
  
                 # Request to create pipes and were any skecth lines added?
                 if cmdCreatePipes and len(new_sketch_lines) > 0:
