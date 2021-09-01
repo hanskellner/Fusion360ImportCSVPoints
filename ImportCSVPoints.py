@@ -440,8 +440,11 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                         if (lines[iLine] == None or len(lines[iLine]) == 0):
                             continue
 
+                        theFirstSketchLine = None
+
                         linePoints = lines[iLine]
-                        for iPt in range(len(linePoints)):
+                        linePointsCount = len(linePoints)
+                        for iPt in range(linePointsCount):
 
                             if Sketch_Style(_style) == Sketch_Style.SKETCH_POINTS:
                                 sketch_points.add(linePoints[iPt])
@@ -450,10 +453,19 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                                 if iPt == 1:
                                     theSketchLine = sketch_lines.addByTwoPoints(linePoints[iPt-1], linePoints[iPt])
                                     new_sketch_lines.append(theSketchLine)
+                                    theFirstSketchLine = theSketchLine
                                 if iPt > 1:
                                     # Use previous sketch line's end point to start next line.  Otherwise they won't
-                                    # be connected lines.
-                                    theSketchLine = sketch_lines.addByTwoPoints(theSketchLine.endSketchPoint, linePoints[iPt])
+                                    # be connected lines.  We also need to check if this is the last line and if it
+                                    # has the same endpoint location as the first line's start point.  If so then we
+                                    # need to use the starting lines point as the endpoint of this line.
+                                    lineEndPoint = None
+                                    if linePoints[iPt].x == linePoints[0].x and linePoints[iPt].y == linePoints[0].y and linePoints[iPt].z == linePoints[0].z:
+                                        lineEndPoint = theFirstSketchLine.startSketchPoint
+                                    else:
+                                        lineEndPoint = linePoints[iPt]
+
+                                    theSketchLine = sketch_lines.addByTwoPoints(theSketchLine.endSketchPoint, lineEndPoint)
                                     # REVIEW: Only pass first line and then use "isChain" when creating feature.path
                                     #new_sketch_lines.append(theSketchLine)
 
