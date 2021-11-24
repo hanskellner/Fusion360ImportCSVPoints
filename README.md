@@ -142,6 +142,13 @@ See or try the sample CSV files whose filenames end with "_pipes.csv" for exampl
 ![Image of 2D pipes](./images/simple2D_pipes.png)
 ![Image of 3D pipes](./images/sketcher_vr_Simple_pipes.png)
 
+### Circles
+
+Drawing circles in 2D/3D
+
+<pre>circle,x,y,radius</pre>
+<pre>circle,x,y,z,radius</pre>
+
 ## Issues
 
 - The script does not support UTF-8 encoded files.  For example, Excel supports saving both UTF-8 and non-UTF-8 encoded CSV files.  Choose the non-UTF-8.

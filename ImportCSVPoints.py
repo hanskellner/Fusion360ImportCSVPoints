@@ -161,8 +161,10 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
             lineCount = 0
             skippingBlanks = False # True when skipping a set of blank lines
             
-            lines = []      # list of point lists
-            points3D = []   # Current Point3D list
+            lines = []              # list of point lists
+            points3D = []           # Current Point3D list
+            CirclePoints3D = []     # Circle centre point list
+            CircleDiameters = []    # Circle diameter list
 
             cmdCreatePipes = False
             argCreatePipesOuterRadius = 1
@@ -269,6 +271,43 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
                             progressDialog.hide()
                             _ui.messageBox("Invalid pipes radius value at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
                             return
+                            
+                    # Command to create circles
+                    elif pieces[0] == 'circle':
+
+                        # Need to end previous set?
+                        if len(points3D) > 0:
+                            lines.append(points3D)
+                            points3D = []
+
+                        # circle needs 3 or 4 arguments: center point [x, y, z] and radius
+                        if (len(pieces) < 4 or len(pieces) > 5):
+                            progressDialog.hide()
+                            _ui.messageBox("Invalid 'circle' line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
+                            return
+
+                        (xValid, x) = convertValue(float(pieces[1]))
+                        (yValid, y) = convertValue(float(pieces[2]))
+
+                        if (len(pieces) == 4):
+                            (zValid, z) = (True, 0)
+                            (radiusValid, radius) = convertValue(float(pieces[3]))
+                        else:
+                            (zValid, z) = convertValue(float(pieces[3]))
+                            (radiusValid, radius) = convertValue(float(pieces[4]))
+                        
+                        if not xValid or not yValid or not zValid or not radiusValid:
+                            progressDialog.hide()
+                            _ui.messageBox("Invalid number at line: {}".format(lineCount) + "\nCSV file: {}".format(_csvFilename))
+                            return
+                        
+                        CirclePoints3D.append(adsk.core.Point3D.create(x,y,z))
+                        CircleDiameters.append(radius)
+                        
+                        if len(lines) == 0: #Workaround to add at least one point to lines for the script not to stop #TODO: Remove
+                            points3D.append(adsk.core.Point3D.create(0,0,0))
+                            lines.append(points3D)
+                            points3D = []
 
                     else:
                     
@@ -476,11 +515,17 @@ class MyCommandExecuteHandler(adsk.core.CommandEventHandler):
 
                         # Update progress value of progress dialog
                         progressDialog.progressValue = iLine
+ 
+                # Draw circles
+                if len(CirclePoints3D) > 0:
+                    sketch_circles = theSketch.sketchCurves.sketchCircles
+                    for iPt in range(len(CirclePoints3D)):
+                        sketch_circles.addByCenterRadius(CirclePoints3D[iPt], CircleDiameters[iPt])
 
                 # Done creating sketch entities
                 theSketch.isComputeDeferred = False
                 theSketch.areProfilesShown = wereProfilesShown
- 
+
                 # Request to create pipes and were any skecth lines added?
                 if cmdCreatePipes and len(new_sketch_lines) > 0:
                     pipe.createPipesOnLines(_app, _ui, new_sketch_lines, argCreatePipesOuterRadius, argCreatePipesInnerRadius)
